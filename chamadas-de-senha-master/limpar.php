@@ -1,19 +1,15 @@
-<?php 
+<?php
+include("conexao.php");
 
-include("conexao.php"); 
- 
+$tipo = $_GET['tipo'];
 
- $limpar= mysqli_query($conn, "TRUNCATE TABLE  atende ") or die( 
-  mysqli_error($cx) );//caso haja um erro na consulta 
-
-			
-
-if (mysqli_query($conn, $sql)) {
-    echo "limpo com sucesso";
-    header("Location: chamaatendimento.php");
-
-
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+if ($tipo == 'preferencial') {
+    // Limpar atendimentos preferenciais
+    $limpar = mysqli_query($conn, "DELETE FROM atende WHERE LENGTH(senhaAtende) = 3");
+} else if ($tipo == 'normal') {
+    // Limpar atendimentos normais
+    $limpar = mysqli_query($conn, "DELETE FROM atende WHERE LENGTH(senhaAtende) != 3");
 }
+
+echo 'Success';
 ?>
