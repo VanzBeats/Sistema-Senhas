@@ -1,72 +1,54 @@
-<?php //include("funcoes.php");
-	include("conexao.php"); 
-//criando a query de consulta ao status em atendimento que é igual a 2
-$atual= mysqli_query($conn, "SELECT  senhaAtende  FROM atende  WHERE statusAtende=2") or die( 
-  mysqli_error($cx) //caso haja um erro na consulta 
-);
+<?php 
+include("conexao.php"); 
 
-//criando a query de consulta ao status de aguardando que é igual a 1
-$aguardando= mysqli_query($conn, "SELECT  senhaAtende  FROM atende  WHERE statusAtende=1") or die( 
-  mysqli_error($cx) //caso haja um erro na consulta 
-);
-
-//criando a query de consulta ao status de atendido que é igual a 3
-$atendido= mysqli_query($conn, "SELECT  senhaAtende  FROM atende  WHERE statusAtende=3") or die( 
-  mysqli_error($cx) //caso haja um erro na consulta 
-);
-
+// Selecionando a senha atual em atendimento (preferencial, se houver)
+$preferencial = mysqli_query($conn, "SELECT senhaAtende FROM atende WHERE statusAtende = 2 AND LENGTH(senhaAtende) = 3 ORDER BY codAtende ASC LIMIT 1") or die(mysqli_error($conn));
+$normal = mysqli_query($conn, "SELECT senhaAtende FROM atende WHERE statusAtende = 2 AND LENGTH(senhaAtende) != 3 ORDER BY codAtende ASC LIMIT 1") or die(mysqli_error($conn));
+$atendido = mysqli_query($conn, "SELECT senhaAtende FROM atende WHERE statusAtende = 3 ORDER BY codAtende DESC") or die(mysqli_error($conn));
 ?>
 
 <!DOCTYPE html>
 <html>
-	<head>
-	<title>TELÃO</title>
-	<link rel="stylesheet" type="text/css" href="_css/estilo.css">
-	<link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
-	<meta charset="utf-8">	
+<head>
+    <title>TELÃO</title>
+    <link rel="stylesheet" type="text/css" href="_css/estilo.css">
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="3"> <!-- Atualização automática a cada 3 segundos -->
+</head>
+<body>
+    <div id="conteudo_telao">
+        <div class="title-container">
+            <h1>Atendimento - Senhas</h1>
+        </div>
 
-	</head>
-<!-- exibe qual a próxima senha a ser chamada, além de exibir a senha do
-atendimento atual e a senha do atendimento anterior;
-Essa página deverá ser atualizada a cada 3 segundos.
- -->
-	<body>
-		<div id="conteudo_telao" >
-			<div id="tela_senha">
-				<?php
-				
-					if($aux = mysqli_fetch_assoc($atual)){
-						echo "SENHA<br>";
-						echo $aux["senhaAtende"];
-					}else{echo "SENHA <br>";}
-							
-				?>					
-			</div>
-			<div id="tela_chamadas">
-				<?php
-				echo "CHAMADAS<br>";
-					for ($aux=0; $aux < $atendido ; $aux++) { 
-							$aux = mysqli_fetch_assoc($atendido); 
+        <div class="senha-container">
+            <div class="senha">
+                <h2>SENHA</h2>
+                <?php
+                if ($preferencial_row = mysqli_fetch_assoc($preferencial)) {
+                    echo "<p>" . $preferencial_row["senhaAtende"] . "P - Guichê 01 </p>";
+                } elseif ($normal_row = mysqli_fetch_assoc($normal)) {
+                    echo "<p>" . $normal_row["senhaAtende"] . " - Guichê 02 </p>";
+                } else {
+                    echo "<p>Nenhuma senha em atendimento</p>";
+                }
+                ?>
+            </div>
+        </div>
 
-							echo $aux["senhaAtende"]."<br>";
-						}	
-					
-				?>
-			</div>
-
-			<div id="tela_prox">
-				<?php
-				echo "PRÓXIMAS<br>";
-					for ($aux=0; $aux < $aguardando ; $aux++) { 
-						
-						$aux = mysqli_fetch_assoc($aguardando);
-								
-								echo $aux["senhaAtende"]."<br>";
-					}
-				?>
-			</div>
-
-			<button class="botao" onclick="window.location.href='index.php'">Voltar</button>
-			<button class="botao" onclick="window.location.href='chamar.php?retorno=telao'">Chamar Próximo</button>
-	</body>
+        <div class="chamadas-container">
+            <h2>ÚLTIMAS CHAMADAS</h2>
+            <?php while ($row = mysqli_fetch_assoc($atendido)) : ?>
+                <div class="chamada">
+                    <?php if (strlen($row["senhaAtende"]) === 3) : ?>
+                        <p><?php echo $row["senhaAtende"]; ?>P - Guichê 01</p>
+                    <?php else : ?>
+                        <p><?php echo $row["senhaAtende"]; ?> - Guichê 02 </p>
+                    <?php endif; ?>
+                </div>
+            <?php endwhile; ?>
+        </div>
+    </div>
+</body>
 </html>

@@ -127,8 +127,8 @@ $status = mysqli_query($conn, "SELECT * FROM atende") or die(mysqli_error($conn)
 
         <!-- Botões para Senhas Preferenciais -->
         <div id="botoesPreferencial" style="display: none;">
-            <button class="botao" onclick="chamarProximo('preferencial')">Chamar Próximo Preferencial</button>
-            <button class="botao" onclick="limparAtendimentos('preferencial')">Limpar Atendimentos Preferenciais</button>
+            <button class="botao" onclick="chamarProximo('preferencial')">Chamar Próximo (Senha Preferencial)</button>
+            <button class="botao" onclick="limparAtendimentos('preferencial')">Limpar Atendimentos (Senhas Preferenciais)</button>
             <button class="botao" onclick="voltar()">Voltar</button>
         </div>
 
@@ -172,8 +172,8 @@ $status = mysqli_query($conn, "SELECT * FROM atende") or die(mysqli_error($conn)
 
         <!-- Botões para Senhas Normais -->
         <div id="botoesNormal" style="display: none;">
-            <button class="botao" onclick="chamarProximo('normal')">Chamar Próximo Normal</button>
-            <button class="botao" onclick="limparAtendimentos('normal')">Limpar Atendimentos Normais</button>
+            <button class="botao" onclick="chamarProximo('normal')">Chamar Próximo (Senha Normal)</button>
+            <button class="botao" onclick="limparAtendimentos('normal')">Limpar Atendimentos (Senhas Normais)</button>
             <button class="botao" onclick="voltar()">Voltar</button>
         </div>
 
