@@ -12,7 +12,8 @@ if ($isPreferential) {
     $senha = generatePreferentialPassword(); // Senha preferencial com 3 digitos + 'P'
 } else {
     $senha = generatePassword(4); // Senha normal com 4 digitos
-}                 		
+}
+
 $status = 1; // 1 aguardando a vez, 2 em atendimento, 3 finalizado
 
 $sql = "INSERT INTO `atende` (dataAtende, senhaAtende, statusAtende) VALUES ('$data', '$senha', '$status')"; 

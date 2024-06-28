@@ -19,8 +19,6 @@
       <input type="hidden" name="preferencial" id="preferencial" value="off">
       <button class="custom-btn btn-5" type="submit" onclick="document.getElementById('preferencial').value='off';"><span> NORMAL</span></button>
       <button class="custom-btn btn-5" type="submit" onclick="document.getElementById('preferencial').value='on';"><span> PREFERENCIAL</span></button>
-      <button class="custom-btn btn-5"><span> GERÊNCIA</span></button>
-      <button class="custom-btn btn-5"><span> ATENDIMENTO</span></button>
     </form>
   </div>
 

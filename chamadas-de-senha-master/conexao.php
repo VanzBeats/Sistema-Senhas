@@ -25,6 +25,14 @@ $sql = "CREATE TABLE IF NOT EXISTS `atende` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1
 AUTO_INCREMENT=1";
 
+$sql = "CREATE TABLE IF NOT EXISTS `funcionario` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `nome` VARCHAR(100) NOT NULL,
+  `funcao` VARCHAR(100) NOT NULL,
+  `senha` INT(11) NOT NULL
+)";
+
+
 mysqli_query($conn, $sql);
 
 //checa se a tabela foi criada com sucesso

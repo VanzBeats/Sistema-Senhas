@@ -101,20 +101,20 @@ $status = mysqli_query($conn, "SELECT * FROM atende") or die(mysqli_error($conn)
                 // Movendo o ponteiro da consulta para o início
                 mysqli_data_seek($status, 0);
                 while ($aux = mysqli_fetch_assoc($status)) {
-                    if (strlen($aux["senhaAtende"]) === 3) {
+                    if (strpos($aux["senhaAtende"], "P") !== false) {
                         echo "<tr>";
                         if ($aux["statusAtende"] == 1) {
-                            echo "<td>" . $aux["senhaAtende"] . "P</td>";
+                            echo "<td>" . $aux["senhaAtende"] . "</td>";
                         } else {
                             echo "<td>&nbsp;</td>";
                         }
                         if ($aux["statusAtende"] == 2) {
-                            echo "<td>" . $aux["senhaAtende"] . "P</td>";
+                            echo "<td>" . $aux["senhaAtende"] . "</td>";
                         } else {
                             echo "<td>&nbsp;</td>";
                         }
                         if ($aux["statusAtende"] == 3) {
-                            echo "<td>" . $aux["senhaAtende"] . "P</td>";
+                            echo "<td>" . $aux["senhaAtende"] . "</td>";
                         } else {
                             echo "<td>&nbsp;</td>";
                         }
@@ -146,7 +146,7 @@ $status = mysqli_query($conn, "SELECT * FROM atende") or die(mysqli_error($conn)
                 // Movendo o ponteiro da consulta para o início
                 mysqli_data_seek($status, 0);
                 while ($aux = mysqli_fetch_assoc($status)) {
-                    if (strlen($aux["senhaAtende"]) !== 3) {
+                    if (strpos($aux["senhaAtende"], "P") === false) {
                         echo "<tr>";
                         if ($aux["statusAtende"] == 1) {
                             echo "<td>" . $aux["senhaAtende"] . "</td>";

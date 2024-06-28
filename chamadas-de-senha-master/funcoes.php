@@ -37,5 +37,4 @@ function generatePreferentialPassword()
     // Retorna a senha preferencial
     return $senhaPreferencial;
 }
-
 ?>
