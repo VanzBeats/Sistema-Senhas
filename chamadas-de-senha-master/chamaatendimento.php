@@ -44,7 +44,7 @@
         }
 
         function limparAtendimentos() {
-            if (confirm('Tem certeza que deseja limpar todos os atendimentos?')) {
+            if (confirm('Tem certeza que deseja limpar todos os atendimentos finalizados?')) {
                 $.ajax({
                     url: 'limpar.php',
                     type: 'GET',
@@ -71,7 +71,7 @@
         <!-- Botões -->
         <div id="botoesPrincipais">
             <button class="botao" onclick="chamarProxima()">Chamar Próxima</button>
-            <button class="botao" onclick="limparAtendimentos()">Limpar Atendimentos</button>
+            <button class="botao" onclick="limparAtendimentos()">Limpar Atendimentos Finalizados</button>
             <button onclick="window.location.href='index.php'">Sair</button>
         </div>
 
